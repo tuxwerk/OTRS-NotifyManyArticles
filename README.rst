@@ -19,7 +19,9 @@ http://opar.perl-services.de/dist/NotifyManyArticles
 Installation
 ------------
 
-Install the opm file in OTRS. Go to the agent preferences and set the colors.
+Install the opm file in OTRS.
+
+To enable the extension, create a group "NotifyManyArticles" and assign users or set the group name in sys config.
 
 .. _OTRS: http://www.otrs.org
 .. _AGPL: http://www.gnu.org/licenses/agpl.html
