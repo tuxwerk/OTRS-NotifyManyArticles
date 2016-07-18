@@ -90,7 +90,7 @@ sub Run {
         my %NotifyUser;
         foreach my $UserID (@UserIDs) {
             $TicketObject->SendAgentNotification(
-                Type => 'ManyArticles',
+                Type => 'NotifyManyArticles',
                 RecipientID => $UserID,
                 CustomerMessageParams => \%Param,
                 TicketID => $Param{Data}->{TicketID},
