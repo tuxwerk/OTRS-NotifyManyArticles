@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<otrs_config version="1.0" init="Application">
+
+  <ConfigItem Name="Ticket::EventModulePost###99-NotifyManyArticles" Required="0" Valid="1">
+    <Description Lang="en">Ticket event module to send notifications.</Description>
+    <Group>Ticket</Group>
+    <SubGroup>Core::Ticket</SubGroup>
+    <Setting>
+      <Hash>
+        <Item Key="Module">Kernel::System::Ticket::Event::NotifyManyArticles</Item>
+        <Item Key="Event">ArticleCreate</Item>
+      </Hash>
+    </Setting>
+  </ConfigItem>
+
+  <ConfigItem Name="NotifyManyArticles::Enabled" Required="1" Valid="1">
+    <Description Lang="en">Enable or disable</Description>
+    <Group>NotifyManyArticles</Group>
+    <SubGroup>NotifyManyArticles::Core</SubGroup>
+    <Setting>
+      <String Regex="">1</String>
+    </Setting>
+  </ConfigItem>
+
+  <ConfigItem Name="NotifyManyArticles::Group" Required="1" Valid="1">
+    <Description Lang="en">Name of group to be notified</Description>
+    <Group>NotifyManyArticles</Group>
+    <SubGroup>NotifyManyArticles::Core</SubGroup>
+    <Setting>
+      <String Regex="">NotifyManyArticles</String>
+    </Setting>
+  </ConfigItem>
+
+  <ConfigItem Name="NotifyManyArticles::Count" Required="1" Valid="1">
+    <Description Lang="en">Send notification when article count equals the value</Description>
+    <Group>NotifyManyArticles</Group>
+    <SubGroup>NotifyManyArticles::Core</SubGroup>
+    <Setting>
+      <String Regex="">20</String>
+    </Setting>
+  </ConfigItem>
+
+</otrs_config>

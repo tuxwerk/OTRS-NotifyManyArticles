@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<otrs_package version="1.0">
+    <Name>NotifyManyArticles</Name>
+    <Version>4.0.1</Version>
+    <Framework>4.0.x</Framework>
+    <Vendor>tuxwerk OHG</Vendor>
+    <URL>https://github.com/tuxwerk/OTRS-NotifyManyArticles</URL>
+    <License></License>
+    <Description Lang="en">Send notification on too many answers on a ticket.</Description>
+    <Description Lang="de">Sende Benachrichtigung bei zu viel Korrespondenz bei einem Ticket.</Description>
+    <Filelist>
+        <File Permission="644" Location="Kernel/System/Ticket/Event/NotifyManyArticles.pm"></File>
+        <File Permission="644" Location="Kernel/Config/Files/NotifyManyArticles.xml"></File>
+    </Filelist>
+    <CodeInstall Type="post"><![CDATA[
+my $sql =<<EOF;
+insert into notifications(notification_type, notification_charset, notification_language, subject, 
+text, 
+content_type, create_time, create_by, change_time, change_by) 
+values('Agent::NotifyManyArticles','utf-8','de','Ticket mit viel Korrespondenz',
+'Hallo <OTRS_USERTITLE> <OTRS_USERLASTNAME>,
+
+das Ticket "<OTRS_TICKET_NUMBER>" hat viel Korrespondenz!
+
+Ticket#: <OTRS_TICKET_NUMBER>
+Von:     <OTRS_CUSTOMER_FROM>
+Betreff: <OTRS_CUSTOMER_SUBJECT>
+
+<OTRS_CUSTOMER_EMAIL[99]>
+
+Bitte um weitere Bearbeitung:
+
+<OTRS_CONFIG_HttpType>://<OTRS_CONFIG_FQDN>/<OTRS_CONFIG_ScriptAlias>index.pl?Action=AgentZoom;TicketID=<OTRS_TICKET_TicketID>
+
+Ihr OTRS Benachrichtigungs-Master',
+'text/plain',now(),1,now(),1);
+EOF
+
+$Kernel::OM->Get("Kernel::System::DB")->Do(SQL => $sql);
+
+$sql =<<EOF;
+insert into notifications(notification_type, notification_charset, notification_language, subject,
+text,
+content_type, create_time, create_by, change_time, change_by) 
+values('Agent::NotifyManyArticles','utf-8','en','Ticket with many answers',
+'Hi <OTRS_USERTITLE> <OTRS_USERLASTNAME>,
+
+the ticket "<OTRS_TICKET_NUMBER>" has many answers!
+
+ticket#: <OTRS_TICKET_NUMBER>
+sender:  <OTRS_CUSTOMER_FROM>
+subject: <OTRS_CUSTOMER_SUBJECT>
+
+<OTRS_CUSTOMER_EMAIL[99]>
+
+please, check it here:
+
+<OTRS_CONFIG_HttpType>://<OTRS_CONFIG_FQDN>/<OTRS_CONFIG_ScriptAlias>index.pl?Action=AgentZoom;TicketID=<OTRS_TICKET_TicketID>
+
+Your OTRS Notification Master',
+'text/plain',now(),1,now(),1);
+EOF
+
+$Kernel::OM->Get("Kernel::System::DB")->Do(SQL => $sql);
+
+    ]]></CodeInstall>
+    <CodeUninstall Type="post"><![CDATA[
+    $Kernel::OM->Get("Kernel::System::DB")->Do(SQL => "delete from notifications where notification_type = 'Agent::NotifyManyArticles'");
+    ]]></CodeUninstall>
+    <IntroInstall Type="post" Lang="en" Title="Configuration"><![CDATA[
+    To enable the extension, create a group "NotifyManyArticles" and assign users or set the group name in sys config.
+    ]]></IntroInstall>
+</otrs_package>
