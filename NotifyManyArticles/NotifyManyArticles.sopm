@@ -5,7 +5,7 @@
     <Framework>4.0.x</Framework>
     <Vendor>tuxwerk OHG</Vendor>
     <URL>https://github.com/tuxwerk/OTRS-NotifyManyArticles</URL>
-    <License></License>
+    <License>GNU AFFERO GENERAL PUBLIC LICENSE Version 3, November 2007</License>
     <Description Lang="en">Send notification on too many answers on a ticket.</Description>
     <Description Lang="de">Sende Benachrichtigung bei zu viel Korrespondenz bei einem Ticket.</Description>
     <Filelist>
